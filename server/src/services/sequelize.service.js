@@ -8,7 +8,7 @@ const isProd = process.env.NODE_ENV === "production";
 const resPath = process.resourcesPath;
 const storageDbPath = isProd
   ? resPath + "/vanlio.db"
-  : __dirname + "/../database/vanlio.db";
+  : __dirname + process.env.DB_PATH_DEV;
 console.log(storageDbPath);
 
 /*const modelFiles = fs

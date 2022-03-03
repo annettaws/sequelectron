@@ -188,6 +188,7 @@ import { useResponsiveAppLeftSidebarVisibility } from '@core/comp-functions/ui/a
 import TodoLeftSidebar from './TodoLeftSidebar.vue'
 import todoStoreModule from './todoStoreModule'
 import TodoTaskHandlerSidebar from './TodoTaskHandlerSidebar.vue'
+import axios from 'axios'
 
 export default {
   components: {
@@ -207,6 +208,19 @@ export default {
     TodoTaskHandlerSidebar,
   },
   setup() {
+    axios.get('http://localhost:3000/user').then((res) => {
+      console.log(res.data)
+    },
+    (err) => {
+      console.log('cazzo: ', err)
+    })
+    axios.get('http://localhost:3000/hello').then((res) => {
+      console.log(res.data)
+    },
+    (err) => {
+      console.log('cazzo: ', err)
+    })
+
     const TODO_APP_STORE_MODULE_NAME = 'app-todo'
 
     // Register module
