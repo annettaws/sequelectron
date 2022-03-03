@@ -1,0 +1,25 @@
+{
+  "development": {
+    "username": "root",
+    "password": "giulio18",
+    "database": "database_development",
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "storage": "vanlio.sqlite"
+
+  },
+  "test": {
+    "username": "root",
+    "password": "giulio18",
+    "database": "database_test",
+    "host": "127.0.0.1",
+    "dialect": "sqlite"
+  },
+  "production": {
+    "username": "root",
+    "password": "giulio18",
+    "database": "database_production",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

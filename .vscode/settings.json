@@ -1,0 +1,11 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "${workspaceFolder:vannlio}/server/src/database/vanlio.db",
+            "name": "vanlio"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}
