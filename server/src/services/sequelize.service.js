@@ -1,7 +1,7 @@
 import { Sequelize, QueryTypes} from "sequelize";
-import User from "../models/User";
-import Address from "../models/Address";
-import UserAddress from "../models/UserAddress";
+// import Users from "../models/Users";
+// import Addresses from "../models/Addresses";
+// import UserAddresses from "../models/UserAddresess";
 //import fs from "fs";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -15,7 +15,7 @@ console.log(storageDbPath);
   .readdirSync(__dirname + "\\..\\src\\server\\src\\models\\")
   .filter((file) => file.endsWith(".js"));
 console.log(modelFiles)*/
-const modelFiles = ["Address.js", "User.js", "UserAddress.js"];
+const modelFiles = ["Addresses", "Users", "UserAddresses", "Products", "Customers"];
 
 const sequelizeService = {
   init: async () => {
@@ -40,7 +40,7 @@ const sequelizeService = {
       */
 
       for (const file of modelFiles) {
-        const model = await import(`../models/${file}`);
+        const model = await import(`../models/${file}.js`);
         model.default.init(connection);
       }
       /*Address.init(connection);

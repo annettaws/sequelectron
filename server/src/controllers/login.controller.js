@@ -1,4 +1,4 @@
-import User from "../models/User";
+import Users from "../models/Users";
 import JwtService from "../services/jwt.service";
 import * as Yup from "yup";
 import { Errors } from "../utils/errors";
@@ -16,7 +16,7 @@ let loginController = {
 
       let { email, password } = req.body;
 
-      const user = await User.findOne({ where: { email } });
+      const user = await Users.findOne({ where: { email } });
 
       if (!user)
         return res.status(400).send({ error: Errors.NONEXISTENT_USER });
