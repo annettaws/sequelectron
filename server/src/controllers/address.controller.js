@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import Address from "../models/Address";
+import Addresses from "../models/Addresses";
 import { Errors } from "../utils/errors";
 
 let addressController = {
@@ -15,14 +15,14 @@ let addressController = {
       if (!(await schema.isValid(req.body)))
         return res.status(400).json({ error: Errors.VALIDATION_FAILS });
 
-      const addressExists = await Address.findOne({
+      const addressExists = await Addresses.findOne({
         where: { ...req.body },
       });
 
       if (addressExists)
         return res.status(400).json({ error: Errors.ADDRESS_ALREADY_EXISTS });
 
-      const address = await Address.create(req.body);
+      const address = await Addresses.create(req.body);
 
       return res.status(200).json(address);
     } catch (error) {

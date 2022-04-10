@@ -1,6 +1,6 @@
 import Sequelize, { Model } from "sequelize";
 
-class Address extends Model {
+class Addresses extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -8,11 +8,15 @@ class Address extends Model {
         state: Sequelize.STRING,
         neighborhood: Sequelize.STRING,
         country: Sequelize.STRING,
+        address: Sequelize.STRING,
+        cap: Sequelize.NUMBER,
+        location: Sequelize.STRING,
+        province: Sequelize.STRING,
       },
       {
         sequelize,
         timestamps: true,
-        modelName: "Address",
+        modelName: "Addresses",
         timestamps: true, //If it's false do not add the attributes (updatedAt, createdAt).
         //paranoid: true, //If it's true, it does not allow deleting from the bank, but inserts column deletedAt. Timestamps need be true.
         //underscored: true, //If it's true, does not add camelcase for automatically generated attributes, so if we define updatedAt it will be created as updated_at.
@@ -25,11 +29,11 @@ class Address extends Model {
   }
 
   static associate(models) {
-    this.belongsToMany(models.User, {
-      through: "UserAddress",
+    this.belongsToMany(models.Users, {
+      through: "UserAddresses",
       foreignKey: "addressId",
     });
   }
 }
 
-export default Address;
+export default Addresses;
