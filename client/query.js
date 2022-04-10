@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-const { User, Task } = require('./models')
+const { Users, Task } = require('./models')
 
 const { Op } = Sequelize
 
@@ -7,7 +7,7 @@ const { Op } = Sequelize
 // Raw SQL: SELECT * FROM "Users" JOIN "Tasks" ON "Tasks"."userId" = "Users".id;
 
 const findAllWithTasks = async () => {
-  const users = await User.findAll({
+  const users = await Users.findAll({
     include: [{
       model: Task,
     }],
@@ -20,21 +20,21 @@ const findAllWithTasks = async () => {
 const findTasksWithUser = async () => {
   const tasks = await Task.findAll({
     include: [{
-      model: User,
+      model: Users,
     }],
   })
   console.log('All tasks with their associated user:', JSON.stringify(tasks, null, 4))
 }
 
 const findAllUsers = async () => {
-  const users = await User.findAll()
+  const users = await Users.findAll()
   console.log('All users:', JSON.stringify(users, null, 4))
 }
 
 // Find all users where firstname is John
 // Raw SQL: SELECT * FROM "Users" WHERE firstName = "John";
 const findAllJohns = async () => {
-  const johns = await User.findAll({
+  const johns = await Users.findAll({
     where: {
       firstName: 'John',
     },
@@ -45,7 +45,7 @@ const findAllJohns = async () => {
 // Create a new user
 // Raw SQL: INSERT INTO "Users" (id, firstName, lastName, email, userName, password, jobTitle) VALUES (DEFAULT, 'Jane', 'Doe', 'jane@jane.com', 'janedoe', '123456789', 'Systems Analyst')
 const createUser = async () => {
-  const jane = await User.create({
+  const jane = await Users.create({
     firstName: 'Jane', lastName: 'Doe', email: 'jane@jane.com', userName: 'janedoe', password: '123456789', jobTitle: 'Systems Analyst',
   })
   console.log("Jane's auto-generated ID:", jane.id)
@@ -54,7 +54,7 @@ const createUser = async () => {
 // Delete everyone named "Jane"
 // Raw SQL: DELETE FROM "Users" WHERE firstName = 'Jane'
 const destroyUser = async () => {
-  const destroyed = await User.destroy({
+  const destroyed = await Users.destroy({
     where: {
       firstName: 'Jane',
     },
@@ -65,7 +65,7 @@ const destroyUser = async () => {
 // Change lastname "Doe" to "Smith"
 // UPDATE "Users" SET lastName='Smith' WHERE lastName = 'Doe'
 const updateUser = async () => {
-  const updated = await User.update({ lastName: 'Smith' }, {
+  const updated = await Users.update({ lastName: 'Smith' }, {
     where: {
       lastName: 'Doe',
     },
@@ -76,7 +76,7 @@ const updateUser = async () => {
 // Find all users and only show their email
 // Raw SQL: SELECT email FROM "Users";
 const findAllEmails = async () => {
-  const emails = await User.findAll({
+  const emails = await Users.findAll({
     attributes: ['email'],
   })
   console.log('All user emails:', JSON.stringify(emails, null, 4))
@@ -85,7 +85,7 @@ const findAllEmails = async () => {
 // Find all users where firstname is either John or Jane
 // Raw SQL: SELECT * FROM "Users" WHERE firstName = "John" OR firstName = "Jane";
 const findAllJohnsOrJanes = async () => {
-  const johnOrJanes = await User.findAll({
+  const johnOrJanes = await Users.findAll({
     where: {
       [Op.or]: [{ firstName: 'John' }, { firstName: 'Jane' }],
     },

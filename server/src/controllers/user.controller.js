@@ -1,6 +1,6 @@
 import * as Yup from "yup";
-import Address from "../models/Address";
-import User from "../models/User";
+import Addresses from "../models/Addresses";
+import Users from "../models/Users";
 import { Errors } from "../utils/errors";
 
 //Yup is a JavaScript schema builder for value parsing and validation.
@@ -27,14 +27,14 @@ let userController = {
 
       const { email } = req.body;
 
-      const userExists = await User.findOne({
+      const userExists = await Users.findOne({
         where: { email },
       });
 
       if (userExists)
         return res.status(400).json({ error: Errors.USER_ALREADY_EXISTS });
 
-      const user = await User.create(req.body);
+      const user = await Users.create(req.body);
 
       return res.status(200).json(user);
     } catch (error) {
@@ -57,14 +57,14 @@ let userController = {
       if (!(await schema.isValid(body.address)))
         return res.status(400).json({ error: Errors.VALIDATION_FAILS });
 
-      const user = await User.findByPk(userId);
+      const user = await Users.findByPk(userId);
 
-      let address = await Address.findOne({
+      let address = await Addresses.findOne({
         where: { ...body.address },
       });
 
       if (!address) {
-        address = await Address.create(body.address);
+        address = await Addresses.create(body.address);
       }
 
       await user.addAddress(address);
@@ -77,8 +77,8 @@ let userController = {
 
   get: async (req, res) => {
     try {
-      console.log("hello: ", User);
-      const users = await User.findAll({ include: Address });
+      console.log("hello: ", Users);
+      const users = await Users.findAll({ include: Addresses });
 
       return res.status(200).json(users);
     } catch (error) {
@@ -90,7 +90,7 @@ let userController = {
   find: async (req, res) => {
     try {
       const { id } = req.params;
-      const user = await User.findByPk(id);
+      const user = await Users.findByPk(id);
 
       if (!user)
         return res.status(400).send({ error: Errors.NONEXISTENT_USER });
@@ -115,7 +115,7 @@ let userController = {
         return res.status(400).json({ error: Errors.VALIDATION_FAILS });
 
       const { email } = req.body;
-      const user = await User.findOne({
+      const user = await Users.findOne({
         where: { email },
       });
       if (!user)
@@ -124,7 +124,7 @@ let userController = {
       user.set(req.body);
       await user.save();
 
-      return res.status(200).json({message: 'Update User General Info'});
+      return res.status(200).json({message: 'Update Users General Info'});
     } catch (error) {
       return res.status(500).json({ error: Errors.SERVER_ERROR });
     }
@@ -161,10 +161,10 @@ let userController = {
 
       const { email, oldPassword } = req.body;
 
-      const user = await User.findByPk(req.userId);
+      const user = await Users.findByPk(req.userId);
 
       if (email) {
-        const userExists = await User.findOne({
+        const userExists = await Users.findOne({
           where: { email },
         });
 
@@ -187,7 +187,7 @@ let userController = {
   delete: async (req, res) => {
     try {
       const { id } = req.params;
-      const user = await User.findByPk(id);
+      const user = await Users.findByPk(id);
       if (!user)
         return res.status(400).send({ error: Errors.NONEXISTENT_USER });
 
