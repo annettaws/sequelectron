@@ -19,8 +19,4 @@ module.exports = {
     ]);
   },
 
-  down: (queryInterface) => {
-    queryInterface.bulkDelete("UserAddresses", null, {});
-    return queryInterface.bulkDelete("Users", null, {});
-  },
 };
