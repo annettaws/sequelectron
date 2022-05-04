@@ -1,5 +1,4 @@
 import Sequelize, { Model } from "sequelize";
-import Addresses from "./Addresses";
 
 class Agents extends Model {
   static init(sequelize) {
@@ -31,10 +30,8 @@ class Agents extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Addresses, {
-      through: "UserAddresses",
-      foreignKey: "addressId" 
-    });
+    Agents.hasMany(models.Addresses);
+    Agents.belongsTo(models.Users);
 
   }
 

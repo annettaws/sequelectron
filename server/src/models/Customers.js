@@ -14,8 +14,8 @@ class Customers extends Model {
         mail: Sequelize.NUMBER,
         pec: Sequelize.STRING,
         discount: Sequelize.STRING,
-        plist: Sequelize.ARRAY,
-        paymentMethod: Sequelize.ARRAY,
+        // plist: Sequelize.ARRAY,
+        paymentMethod: Sequelize.STRING,
         agent: Sequelize.STRING,
         note: Sequelize.STRING,
         
@@ -35,11 +35,8 @@ class Customers extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Addresses, {
-      through: "UserAddresses",
-      foreignKey: "addressId" 
-    });
-
+    Customers.hasMany(models.Addresses);
+    Customers.belongsTo(models.Users)
   }
 
 }

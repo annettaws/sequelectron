@@ -28,12 +28,6 @@ class Addresses extends Model {
     return this;
   }
 
-  static associate(models) {
-    this.belongsToMany(models.Users, {
-      through: "UserAddresses",
-      foreignKey: "addressId",
-    });
-  }
 }
 
 export default Addresses;

@@ -32,14 +32,6 @@ class Documents extends Model {
     return this;
   }
 
-  static associate(models) {
-    this.belongsTo(models.Addresses, {
-      through: "UserAddresses",
-      foreignKey: "addressId" 
-    });
-
-  }
-
 }
 
 export default Documents;

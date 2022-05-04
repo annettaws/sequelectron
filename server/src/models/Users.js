@@ -1,7 +1,7 @@
 import Sequelize, { Model } from "sequelize";
 import bcrypt from "bcryptjs";
 
-class Customers extends Model {
+class Users extends Model {
   static init(sequelize) {
     super.init(
       {
@@ -54,10 +54,7 @@ class Customers extends Model {
   }
 
   static associate(models) {
-    this.belongsToMany(models.Address, {
-      through: "UserAddresses",
-      foreignKey: "userId",
-    });
+    Users.hasMany(models.Addresses);
   }
 
   checkPassword(password) {
