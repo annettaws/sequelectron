@@ -1,4 +1,5 @@
 import Sequelize, { Model } from "sequelize";
+import Users from '../models/Users'
 
 class Agents extends Model {
   static init(sequelize) {

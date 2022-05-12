@@ -3,8 +3,14 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "database": "${workspaceFolder:vannlio}/server/src/database/vanlio.db",
-            "name": "vanlio"
+            "name": "vanlio",
+            "database": "/Users/giuliogarofalo/job/oth/anna/sequelectron/server/src/database/vanlio.sqlite"
+        },
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "database": "/Users/giuliogarofalo/job/oth/anna/vannlio/client/vanlio.sqlite",
+            "name": "ppp"
         }
     ],
     "sqltools.useNodeRuntime": true

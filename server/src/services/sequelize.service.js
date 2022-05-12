@@ -1,21 +1,21 @@
 import { Sequelize, QueryTypes} from "sequelize";
-// import Users from "../models/Users";
-// import Addresses from "../models/Addresses";
-// import UserAddresses from "../models/UserAddresess";
-//import fs from "fs";
+import fs from "fs";
+const path = require('path');
+const base = path.resolve('.');
 
 const isProd = process.env.NODE_ENV === "production";
 const resPath = process.resourcesPath;
+
 const storageDbPath = isProd
   ? resPath + "/vanlio.db"
-  : __dirname + "/../database/vanlio.db";
-console.log(storageDbPath);
+  : `${base}/src/database/vanlio.sqlite`;
+// console.log("storageDbPath",storageDbPath);
 
-/*const modelFiles = fs
-  .readdirSync(__dirname + "\\..\\src\\server\\src\\models\\")
-  .filter((file) => file.endsWith(".js"));
-console.log(modelFiles)*/
-const modelFiles = ["Addresses", "Users", "UserAddresses", "Products", "Customers"];
+const modelFiles = fs.readdirSync(`${base}/src/models`).filter(
+  (file) => file.endsWith(".js")
+)
+const modelFilesPath = modelFiles.map(el => `${base}/src/models/${el}`)
+// console.log(modelFilesPath)
 
 const sequelizeService = {
   init: async () => {
@@ -27,6 +27,7 @@ const sequelizeService = {
         {
           host: "0.0.0.0",
           dialect: "sqlite",
+          models: modelFilesPath,
           pool: {
             max: 5,
             min: 0,
@@ -34,23 +35,18 @@ const sequelizeService = {
           },
           storage: storageDbPath,
         }
+
       );
       /*
         Loading models automatically
       */
-
-      for (const file of modelFiles) {
-        const model = await import(`../models/${file}.js`);
+        for (const file of modelFilesPath) {
+        const model = await import(file);
         model.default.init(connection);
-      }
-      /*Address.init(connection);
-      User.init(connection);
-      UserAddress.init(connection);*/
+        // model.default.associate && model.default.associate(connection.models);
 
-      modelFiles.map(async (file) => {
-        const model = await import(`../models/${file}`);
-        model.default.associate && model.default.associate(connection.models);
-      });
+      }
+
       /*Address.associate && Address.associate(connection.models);
       User.associate && User.associate(connection.models);
       UserAddress.associate && UserAddress.associate(connection.models);*/

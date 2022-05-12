@@ -3,6 +3,7 @@ import expressService from "./services/express.service";
 import sequelizeService from "./services/sequelize.service";
 //import awsService from "./services/aws.service";
 dotenv.config();
+global.__basedir = __dirname;
 
 const services = [expressService, /*awsService,*/ sequelizeService];
 
