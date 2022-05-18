@@ -47,9 +47,9 @@ const sequelizeService = {
 
       }
 
-      /*Address.associate && Address.associate(connection.models);
+      Address.associate && Address.associate(connection.models);
       User.associate && User.associate(connection.models);
-      UserAddress.associate && UserAddress.associate(connection.models);*/
+      UserAddress.associate && UserAddress.associate(connection.models);
 
       console.log("[SEQUELIZE] Database service initialized");
     } catch (error) {

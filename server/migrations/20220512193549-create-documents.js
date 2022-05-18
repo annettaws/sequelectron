@@ -2,27 +2,27 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) =>
-    queryInterface.createTable("Customers>", {
+    queryInterface.createTable("Agents", {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      prefix: {
+      type: {
         allowNull: false,
         type: Sequelize.STRING,
       },
-      firstname: {
+      date: {
         allowNull: false,
+        type: Sequelize.DATE,
+      },
+      customer: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
-      lastName: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
-      userName: {
-        allowNull: false,
+      uniqueCode: {
+        allowNull: true,
         type: Sequelize.STRING,
       },
       cf: {
@@ -41,28 +41,12 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      uniqueCode: {
-        allowNull: true,
-        type: Sequelize.STRING,
-      },
-      pec: {
-        allowNull: true,
-        type: Sequelize.STRING,
-      },
-       paymentMethod: {
-        allowNull: true,
-        type: Sequelize.STRING,
-      },
-      agent: {
-        allowNull: true,
-        type: Sequelize.STRING,
-      },
-      notes: {
+      bodyType: {
         allowNull: true,
         type: Sequelize.STRING,
       },
     }),
 
-    down: (queryInterface) => queryInterface.dropTable("Customers"),
+    down: (queryInterface) => queryInterface.dropTable("Agents"),
   };
   

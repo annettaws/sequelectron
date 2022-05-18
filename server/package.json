@@ -5,6 +5,14 @@
   "scripts": {
     "dev": "nodemon src/index.js"
   },
+  "migrationStorage": "sequelize",
+  "migrationStorageTableName": "sequelize_migration",
+  "logging":true,
+  "pool": {
+      "max": 15,
+      "min": 0,
+      "idle": 10000
+  },
   "dependencies": {
     "aws-sdk": "^2.814.0",
     "bcryptjs": "^2.4.3",
