@@ -9,7 +9,7 @@ const resPath = process.resourcesPath;
 const storageDbPath = isProd
   ? resPath + "/vanlio.db"
   : `${base}/src/database/vanlio.sqlite`;
-// console.log("storageDbPath",storageDbPath);
+console.log("storageDbPath",storageDbPath);
 
 const modelFiles = fs.readdirSync(`${base}/src/models`).filter(
   (file) => file.endsWith(".js")
