@@ -3,8 +3,8 @@
         {
             "previewLimit": 50,
             "driver": "SQLite",
-            "name": "aaa",
-            "database": "~/server/src/database/vanlio.sqlite"
+            "name": "vanlio",
+            "database": "server/src/database/vanlio.sqlite"
         }
     ],
     "sqltools.useNodeRuntime": true
