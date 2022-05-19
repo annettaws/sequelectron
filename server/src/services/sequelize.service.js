@@ -2,6 +2,7 @@ import { Sequelize, QueryTypes} from "sequelize";
 import fs from "fs";
 const path = require('path');
 const base = path.resolve('.');
+import SQLite from 'sqlite3';
 
 const isProd = process.env.NODE_ENV === "production";
 const resPath = process.resourcesPath;
@@ -12,7 +13,7 @@ const storageDbPath = isProd
 console.log("storageDbPath",storageDbPath);
 
 const modelFiles = fs.readdirSync(`${base}/src/models`).filter(
-  (file) => file.endsWith(".js")
+  (file) => file.match(/^((?!index\.).)*\.js$/)
 )
 const modelFilesPath = modelFiles.map(el => `${base}/src/models/${el}`)
 // console.log(modelFilesPath)
@@ -27,6 +28,9 @@ const sequelizeService = {
         {
           host: "0.0.0.0",
           dialect: "sqlite",
+          dialectOptions: {
+            mode: SQLite.OPEN_READWRITE | SQLite.OPEN_CREATE | SQLite.OPEN_FULLMUTEX,
+          },
           models: modelFilesPath,
           pool: {
             max: 5,
@@ -43,7 +47,7 @@ const sequelizeService = {
         for (const file of modelFilesPath) {
         const model = await import(file);
         model.default.init(connection);
-        // model.default.associate && model.default.associate(connection.models);
+        model.default.associate && model.default.associate(connection.models);
 
       }
 

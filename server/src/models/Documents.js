@@ -1,5 +1,4 @@
 import Sequelize, { Model } from "sequelize";
-import Addresses from "./Addresses";
 
 class Documents extends Model {
   static init(sequelize) {

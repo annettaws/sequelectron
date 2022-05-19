@@ -1,5 +1,5 @@
 import Sequelize, { Model } from "sequelize";
-import Addresses from "./Addresses";
+import Customers from "./Customers";
 
 class Customers extends Model {
   static init(sequelize) {
